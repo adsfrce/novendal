@@ -1,328 +1,218 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Novendal</title>
-  <meta name="description" content="Novendal is a private holding company operating in software and performance marketing." />
-  <meta name="theme-color" content="#f2f4f7" />
-  <link rel="stylesheet" href="styles.css" />
-</head>
+(() => {
+  "use strict";
 
-<body>
-  <!-- Global keynote-style beam background -->
-  <div class="beams" aria-hidden="true">
-    <span class="beam beam--1"></span>
-    <span class="beam beam--2"></span>
-    <span class="beam beam--3"></span>
-  </div>
+  const prefersReduced = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
 
-  <header class="header">
-    <div class="container header__inner">
-      <a href="#top" class="brand" aria-label="Novendal home">
-        <img src="logo.png" alt="Novendal" class="logo" />
-      </a>
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 
-      <nav class="nav" aria-label="Primary">
-        <a class="nav__link" href="#overview">Overview</a>
-        <a class="nav__link" href="#focus">Focus</a>
-        <a class="nav__link" href="#principles">Principles</a>
-        <a class="nav__link" href="#contact">Contact</a>
-        <span class="nav__indicator" aria-hidden="true"></span>
-      </nav>
+  // Year
+  const yearEl = $("#year");
+  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-      <button class="menu" type="button" aria-label="Open menu" aria-expanded="false">
-        <span class="menu__bar"></span>
-        <span class="menu__bar"></span>
-      </button>
-    </div>
+  // Mobile drawer
+  const menuBtn = $(".menu");
+  const drawer = $("[data-drawer]");
+  const setDrawer = (open) => {
+    if (!drawer || !menuBtn) return;
+    drawer.setAttribute("data-open", open ? "true" : "false");
+    menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+  };
+  if (menuBtn && drawer) {
+    menuBtn.addEventListener("click", () => {
+      const open = drawer.getAttribute("data-open") === "true";
+      setDrawer(!open);
+    });
+    drawer.addEventListener("click", (e) => {
+      const a = e.target.closest("a");
+      if (a) setDrawer(false);
+    });
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setDrawer(false);
+    });
+  }
 
-    <div class="drawer" data-drawer>
-      <div class="drawer__inner container">
-        <a class="drawer__link" href="#overview">Overview</a>
-        <a class="drawer__link" href="#focus">Focus</a>
-        <a class="drawer__link" href="#principles">Principles</a>
-        <a class="drawer__link" href="#contact">Contact</a>
-      </div>
-    </div>
-  </header>
+  // Smooth anchors with sticky header offset
+  const header = $(".header");
+  const headerH = () => (header ? header.getBoundingClientRect().height : 0);
 
-  <main id="top">
-    <!-- HERO -->
-    <section class="hero container">
-      <div class="hero__grid">
-        <div class="hero__left">
-          <div class="kicker reveal">
-            <span class="dot"></span>
-            Holding company • Software • Performance Marketing
-          </div>
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const id = a.getAttribute("href");
+    if (!id || id.length < 2) return;
+    const target = document.querySelector(id);
+    if (!target) return;
 
-          <h1 class="hero__title reveal">
-            Built for long-term value.<br />
-            Operated with precision.
-          </h1>
+    e.preventDefault();
+    const y = window.scrollY + target.getBoundingClientRect().top - headerH() - 12;
+    window.scrollTo({ top: y, behavior: prefersReduced ? "auto" : "smooth" });
+  });
 
-          <p class="hero__sub reveal">
-            Novendal is a holding company focused on building and operating businesses in software and performance marketing.
-            We favor durable systems, clean execution, and compounding outcomes.
-          </p>
+  // Header shadow on scroll
+  const headerEl = $(".header");
+  const applyHeaderShadow = () => {
+    if (!headerEl) return;
+    const y = window.scrollY || 0;
+    headerEl.style.boxShadow = y > 8 ? "0 14px 45px rgba(10,18,32,.07)" : "none";
+  };
+  applyHeaderShadow();
+  window.addEventListener("scroll", applyHeaderShadow, { passive: true });
 
-          <div class="hero__actions reveal">
-            <a class="btn btn--primary" href="#contact">Contact</a>
-            <a class="btn btn--ghost" href="#overview">Learn more</a>
-          </div>
+  // Reveal (subtle, premium)
+  const reveals = $$(".reveal");
+  if (!prefersReduced && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("is-in");
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -12% 0px" });
 
-          <div class="hero__meta reveal">
-            <div class="meta__item">
-              <div class="meta__label">Based</div>
-              <div class="meta__value">United States</div>
-            </div>
-            <div class="meta__item">
-              <div class="meta__label">Domains</div>
-              <div class="meta__value">SaaS • Automation • Paid Media</div>
-            </div>
-          </div>
+    reveals.forEach((el, i) => {
+      el.style.transitionDelay = `${Math.min(i * 45, 260)}ms`;
+      io.observe(el);
+    });
+  } else {
+    reveals.forEach((el) => el.classList.add("is-in"));
+  }
 
-          <div class="hero__bottom reveal">
-            <div class="trusted">
-              <span class="trusted__label">What we optimize for</span>
-              <div class="trusted__items">
-                <span class="chip">Clarity</span>
-                <span class="chip">Speed</span>
-                <span class="chip">Reliability</span>
-                <span class="chip">Compounding results</span>
-              </div>
-            </div>
-          </div>
-        </div>
+  // Tilt cards
+  const tiltEls = $$("[data-tilt]");
+  const tiltStrength = 10;
 
-        <div class="hero__right reveal">
-          <div class="glasscard tilt" data-tilt>
-            <div class="glasscard__top">
-              <div class="pill">Portfolio View</div>
-              <div class="badge">Private</div>
-            </div>
+  const tiltMove = (el, ev) => {
+    const r = el.getBoundingClientRect();
+    const px = (ev.clientX - r.left) / r.width;
+    const py = (ev.clientY - r.top) / r.height;
+    const rx = (0.5 - py) * tiltStrength;
+    const ry = (px - 0.5) * tiltStrength;
+    el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
+  };
+  const tiltReset = (el) => {
+    el.style.transform = `perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
+  };
 
-            <div class="glasscard__body">
-              <div class="stat">
-                <div class="stat__label">Build</div>
-                <div class="stat__value">Software</div>
-              </div>
-              <div class="divider"></div>
-              <div class="stat">
-                <div class="stat__label">Scale</div>
-                <div class="stat__value">Marketing</div>
-              </div>
-              <div class="divider"></div>
-              <div class="stat">
-                <div class="stat__label">Compound</div>
-                <div class="stat__value">Cashflow</div>
-              </div>
+  if (!prefersReduced) {
+    tiltEls.forEach((el) => {
+      let inside = false;
+      el.addEventListener("mouseenter", () => {
+        inside = true;
+        el.style.transition = "transform .25s cubic-bezier(.2,.8,.2,1)";
+      });
+      el.addEventListener("mousemove", (ev) => {
+        if (!inside) return;
+        el.style.transition = "transform .08s linear";
+        tiltMove(el, ev);
+      });
+      el.addEventListener("mouseleave", () => {
+        inside = false;
+        el.style.transition = "transform .35s cubic-bezier(.2,.8,.2,1)";
+        tiltReset(el);
+      });
+    });
+  }
 
-              <div class="mini">
-                <div class="mini__row"><span>Systems</span><span class="mini__chip">Ops</span></div>
-                <div class="mini__row"><span>Automation</span><span class="mini__chip">AI</span></div>
-                <div class="mini__row"><span>Distribution</span><span class="mini__chip">Paid</span></div>
-              </div>
-            </div>
+  // Beam parallax + drift (mouse + scroll velocity)
+  const beams = $$(".beam");
+  let mx = 0, my = 0;
+  let lastY = window.scrollY || 0;
+  let t = 0;
 
-            <div class="glasscard__footer">
-              <span class="muted">Information-only website</span>
-              <span class="accentline"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  const onMouseMove = (e) => {
+    const vw = Math.max(1, window.innerWidth);
+    const vh = Math.max(1, window.innerHeight);
+    mx = (e.clientX / vw) - 0.5;   // -0.5..0.5
+    my = (e.clientY / vh) - 0.5;
+  };
 
-    <!-- OVERVIEW -->
-    <section class="section container" id="overview">
-      <div class="section__head reveal">
-        <h2 class="section__title">Overview</h2>
-        <p class="section__desc">
-          Operator-led companies. Disciplined standards. A bias toward systems that scale.
-        </p>
-      </div>
+  if (!prefersReduced) window.addEventListener("mousemove", onMouseMove, { passive: true });
 
-      <div class="cards">
-        <article class="card reveal">
-          <h3>Software</h3>
-          <p>Products and internal tools that remove friction: automation, onboarding, analytics, and repeatable workflows.</p>
-          <div class="card__foot">
-            <span class="tag">SaaS</span><span class="tag">Automation</span><span class="tag">UX</span>
-          </div>
-        </article>
+  const baseRot = (beam, i) => {
+    if (beam.classList.contains("beam--1")) return -18;
+    if (beam.classList.contains("beam--2")) return -12;
+    if (beam.classList.contains("beam--3")) return -22;
+    return -16 - i * 3;
+  };
 
-        <article class="card reveal">
-          <h3>Marketing</h3>
-          <p>Performance distribution with executive-grade measurement: creative systems, funnels, and channel execution.</p>
-          <div class="card__foot">
-            <span class="tag">Paid Media</span><span class="tag">Creative</span><span class="tag">Attribution</span>
-          </div>
-        </article>
+  let raf = 0;
+  const tick = () => {
+    raf = 0;
+    if (prefersReduced || !beams.length) return;
 
-        <article class="card reveal">
-          <h3>Holding</h3>
-          <p>Capital allocation built around durability and alignment. We prefer cashflow, defensibility, and clean operations.</p>
-          <div class="card__foot">
-            <span class="tag">Long-term</span><span class="tag">Discipline</span><span class="tag">Integrity</span>
-          </div>
-        </article>
-      </div>
-    </section>
+    t += 0.0016;
 
-    <!-- FOCUS -->
-    <section class="section section--alt" id="focus">
-      <div class="container">
-        <div class="section__head reveal">
-          <h2 class="section__title">Focus</h2>
-          <p class="section__desc">
-            A small set of repeatable strengths, executed deeply.
-          </p>
-        </div>
+    const y = window.scrollY || 0;
+    const dy = y - lastY;
+    lastY = y;
+    const vel = clamp(dy, -70, 70);
 
-        <div class="split">
-          <div class="split__left reveal">
-            <div class="list">
-              <div class="list__item">
-                <div class="list__icon">01</div>
-                <div>
-                  <div class="list__title">Automation-first operations</div>
-                  <div class="list__desc">Reduce manual work, increase consistency, shorten cycle times.</div>
-                </div>
-              </div>
+    beams.forEach((beam, i) => {
+      const sx = Math.sin(t + i * 1.2) * 80;
+      const sy = Math.cos(t * 0.9 + i * 0.85) * 60;
 
-              <div class="list__item">
-                <div class="list__icon">02</div>
-                <div>
-                  <div class="list__title">High-signal measurement</div>
-                  <div class="list__desc">Decisions based on clean data, not noise. Simple dashboards, real KPIs.</div>
-                </div>
-              </div>
+      const px = mx * 34;
+      const py = my * 22;
 
-              <div class="list__item">
-                <div class="list__icon">03</div>
-                <div>
-                  <div class="list__title">Distribution as a core competency</div>
-                  <div class="list__desc">Offers and creatives designed to scale without fragility.</div>
-                </div>
-              </div>
-            </div>
-          </div>
+      const vx = vel * 0.16;
+      const vy = vel * -0.08;
 
-          <div class="split__right reveal">
-            <div class="quote">
-              <p>
-                “We care about elegance, but we care more about outcomes.
-                If it’s not measurable, it’s not real.”
-              </p>
-              <div class="quote__by">
-                <span class="quote__line"></span>
-                <span class="muted">Novendal</span>
-              </div>
-            </div>
+      const x = sx + px + vx;
+      const y2 = sy + py + vy;
 
-            <div class="metrics">
-              <div class="metric">
-                <div class="metric__k">Quality</div>
-                <div class="metric__v">Design-led</div>
-              </div>
-              <div class="metric">
-                <div class="metric__k">Execution</div>
-                <div class="metric__v">Operator-first</div>
-              </div>
-              <div class="metric">
-                <div class="metric__k">Scope</div>
-                <div class="metric__v">Selective</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      const r = baseRot(beam, i);
+      beam.style.transform = `translate(${x}px, ${y2}px) rotate(${r}deg)`;
+    });
 
-    <!-- PRINCIPLES -->
-    <section class="section container" id="principles">
-      <div class="section__head reveal">
-        <h2 class="section__title">Principles</h2>
-        <p class="section__desc">
-          The standards we apply across all ventures.
-        </p>
-      </div>
+    raf = requestAnimationFrame(tick);
+  };
 
-      <div class="principles">
-        <div class="principle reveal">
-          <div class="principle__cap">Craft</div>
-          <div class="principle__body">Simple, sharp, and intentional. Details matter.</div>
-        </div>
-        <div class="principle reveal">
-          <div class="principle__cap">Leverage</div>
-          <div class="principle__body">Systems beat effort. Automation beats chaos.</div>
-        </div>
-        <div class="principle reveal">
-          <div class="principle__cap">Signal</div>
-          <div class="principle__body">Only metrics that drive decisions. Everything else is noise.</div>
-        </div>
-        <div class="principle reveal">
-          <div class="principle__cap">Durability</div>
-          <div class="principle__body">Long-term thinking with short feedback loops.</div>
-        </div>
-      </div>
-    </section>
+  if (!prefersReduced && beams.length) tick();
 
-    <!-- CONTACT -->
-    <section class="section section--alt" id="contact">
-      <div class="container contact">
-        <div class="contact__left reveal">
-          <h2 class="section__title">Contact</h2>
-          <p class="section__desc">
-            This website is informational. For partnership discussions, reach out.
-          </p>
+  // Nav indicator: tracks active section + animates under links
+  const nav = $(".nav");
+  const indicator = $(".nav__indicator");
+  const navLinks = $$(".nav__link");
 
-          <div class="contact__info">
-            <div class="info">
-              <div class="info__k">Email</div>
-              <div class="info__v">
-                <a class="link" href="mailto:hello@novendal.com">hello@novendal.com</a>
-              </div>
-            </div>
-            <div class="info">
-              <div class="info__k">Status</div>
-              <div class="info__v muted">Legal structure is currently being finalized.</div>
-            </div>
-          </div>
-        </div>
+  const placeIndicator = (link) => {
+    if (!nav || !indicator || !link) return;
+    const navRect = nav.getBoundingClientRect();
+    const r = link.getBoundingClientRect();
+    const x = r.left - navRect.left;
+    indicator.style.transform = `translateX(${x}px)`;
+    indicator.style.width = `${r.width}px`;
+    indicator.style.opacity = "0.95";
+  };
 
-        <div class="contact__right reveal">
-          <div class="contactcard tilt" data-tilt>
-            <div class="contactcard__row">
-              <span class="muted">Novendal</span>
-              <span class="tag tag--accent">Holding Company</span>
-            </div>
-            <div class="contactcard__big">
-              Software + marketing ventures with an operator mindset.
-            </div>
-            <div class="contactcard__row">
-              <a class="btn btn--primary" href="mailto:hello@novendal.com">Email us</a>
-              <a class="btn btn--ghost" href="#top">Back to top</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  // initial placement
+  if (navLinks.length) placeIndicator(navLinks[0]);
 
-    <footer class="footer container">
-      <div class="footer__left">
-        <img src="logo.png" alt="" class="footer__logo" />
-        <span class="muted">© <span id="year"></span> Novendal</span>
-      </div>
-      <div class="footer__right">
-        <a class="link muted" href="#overview">Overview</a>
-        <a class="link muted" href="#contact">Contact</a>
-      </div>
-    </footer>
-  </main>
+  const sections = navLinks
+    .map((a) => document.querySelector(a.getAttribute("href")))
+    .filter(Boolean);
 
-  <script src="main.js"></script>
-</body>
-</html>
+  if (!prefersReduced && "IntersectionObserver" in window && sections.length) {
+    const map = new Map();
+    sections.forEach((sec, i) => map.set(sec, navLinks[i]));
+
+    const nio = new IntersectionObserver((entries) => {
+      // choose the most visible intersecting section
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+      if (visible) placeIndicator(map.get(visible.target));
+    }, { threshold: [0.25, 0.4, 0.6], rootMargin: "-15% 0px -60% 0px" });
+
+    sections.forEach(sec => nio.observe(sec));
+  }
+
+  // hover feel
+  navLinks.forEach((a) => {
+    a.addEventListener("mouseenter", () => placeIndicator(a));
+  });
+  nav?.addEventListener("mouseleave", () => {
+    // snap back to first visible section if possible, otherwise first link
+    placeIndicator(navLinks[0] || null);
+  });
+})();
