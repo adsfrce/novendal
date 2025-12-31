@@ -80,12 +80,12 @@ img{ display:block; max-width:100%; }
 }
 
 .bg__spot{
-  position:absolute;
-  inset: 0%;
-  background: radial-gradient(circle at var(--cx, 50%) var(--cy, 20%),
+  background: radial-gradient(
+    circle 280px at var(--cx, 50%) var(--cy, 20%),
     rgba(6,38,73,.10),
-    transparent 25%);
-  opacity:.85;
+    transparent 100%
+  );
+  opacity: .6;
   transition: opacity .2s linear;
 }
 
