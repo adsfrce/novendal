@@ -1,194 +1,328 @@
-// script.js (REPLACE ENTIRE FILE WITH THIS)
-(() => {
-  "use strict";
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Novendal</title>
+  <meta name="description" content="Novendal is a private holding company operating in software and performance marketing." />
+  <meta name="theme-color" content="#f2f4f7" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
 
-  const prefersReduced = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+<body>
+  <!-- Global keynote-style beam background -->
+  <div class="beams" aria-hidden="true">
+    <span class="beam beam--1"></span>
+    <span class="beam beam--2"></span>
+    <span class="beam beam--3"></span>
+  </div>
 
-  // -----------------------------
-  // Helpers
-  // -----------------------------
-  const $ = (sel, root = document) => root.querySelector(sel);
-  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
-  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+  <header class="header">
+    <div class="container header__inner">
+      <a href="#top" class="brand" aria-label="Novendal home">
+        <img src="logo.png" alt="Novendal" class="logo" />
+      </a>
 
-  // -----------------------------
-  // Footer year
-  // -----------------------------
-  const yearEl = $("#year");
-  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+      <nav class="nav" aria-label="Primary">
+        <a class="nav__link" href="#overview">Overview</a>
+        <a class="nav__link" href="#focus">Focus</a>
+        <a class="nav__link" href="#principles">Principles</a>
+        <a class="nav__link" href="#contact">Contact</a>
+        <span class="nav__indicator" aria-hidden="true"></span>
+      </nav>
 
-  // -----------------------------
-  // Mobile drawer (safe even if you don't have it)
-  // - Works with:
-  //   button.menu
-  //   [data-drawer] container
-  //   drawer links inside
-  // -----------------------------
-  const menuBtn = $(".menu");
-  const drawer = $("[data-drawer]");
+      <button class="menu" type="button" aria-label="Open menu" aria-expanded="false">
+        <span class="menu__bar"></span>
+        <span class="menu__bar"></span>
+      </button>
+    </div>
 
-  const setDrawer = (open) => {
-    if (!drawer || !menuBtn) return;
-    drawer.setAttribute("data-open", open ? "true" : "false");
-    menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
-  };
+    <div class="drawer" data-drawer>
+      <div class="drawer__inner container">
+        <a class="drawer__link" href="#overview">Overview</a>
+        <a class="drawer__link" href="#focus">Focus</a>
+        <a class="drawer__link" href="#principles">Principles</a>
+        <a class="drawer__link" href="#contact">Contact</a>
+      </div>
+    </div>
+  </header>
 
-  if (menuBtn && drawer) {
-    menuBtn.addEventListener("click", () => {
-      const open = drawer.getAttribute("data-open") === "true";
-      setDrawer(!open);
-    });
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero container">
+      <div class="hero__grid">
+        <div class="hero__left">
+          <div class="kicker reveal">
+            <span class="dot"></span>
+            Holding company • Software • Performance Marketing
+          </div>
 
-    drawer.addEventListener("click", (e) => {
-      const a = e.target.closest("a");
-      if (a) setDrawer(false);
-    });
+          <h1 class="hero__title reveal">
+            Built for long-term value.<br />
+            Operated with precision.
+          </h1>
 
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") setDrawer(false);
-    });
-  }
+          <p class="hero__sub reveal">
+            Novendal is a holding company focused on building and operating businesses in software and performance marketing.
+            We favor durable systems, clean execution, and compounding outcomes.
+          </p>
 
-  // -----------------------------
-  // Smooth anchor scrolling with sticky header offset
-  // - Works for: <a href="#section">
-  // - Prevents jump + accounts for fixed/sticky header height
-  // -----------------------------
-  const header = $(".header");
-  const headerH = () => (header ? header.getBoundingClientRect().height : 0);
+          <div class="hero__actions reveal">
+            <a class="btn btn--primary" href="#contact">Contact</a>
+            <a class="btn btn--ghost" href="#overview">Learn more</a>
+          </div>
 
-  document.addEventListener("click", (e) => {
-    const a = e.target.closest('a[href^="#"]');
-    if (!a) return;
+          <div class="hero__meta reveal">
+            <div class="meta__item">
+              <div class="meta__label">Based</div>
+              <div class="meta__value">United States</div>
+            </div>
+            <div class="meta__item">
+              <div class="meta__label">Domains</div>
+              <div class="meta__value">SaaS • Automation • Paid Media</div>
+            </div>
+          </div>
 
-    const id = a.getAttribute("href");
-    if (!id || id.length < 2) return;
+          <div class="hero__bottom reveal">
+            <div class="trusted">
+              <span class="trusted__label">What we optimize for</span>
+              <div class="trusted__items">
+                <span class="chip">Clarity</span>
+                <span class="chip">Speed</span>
+                <span class="chip">Reliability</span>
+                <span class="chip">Compounding results</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-    const target = document.querySelector(id);
-    if (!target) return;
+        <div class="hero__right reveal">
+          <div class="glasscard tilt" data-tilt>
+            <div class="glasscard__top">
+              <div class="pill">Portfolio View</div>
+              <div class="badge">Private</div>
+            </div>
 
-    e.preventDefault();
+            <div class="glasscard__body">
+              <div class="stat">
+                <div class="stat__label">Build</div>
+                <div class="stat__value">Software</div>
+              </div>
+              <div class="divider"></div>
+              <div class="stat">
+                <div class="stat__label">Scale</div>
+                <div class="stat__value">Marketing</div>
+              </div>
+              <div class="divider"></div>
+              <div class="stat">
+                <div class="stat__label">Compound</div>
+                <div class="stat__value">Cashflow</div>
+              </div>
 
-    const y = window.scrollY + target.getBoundingClientRect().top - headerH() - 12;
-    window.scrollTo({ top: y, behavior: prefersReduced ? "auto" : "smooth" });
-  });
+              <div class="mini">
+                <div class="mini__row"><span>Systems</span><span class="mini__chip">Ops</span></div>
+                <div class="mini__row"><span>Automation</span><span class="mini__chip">AI</span></div>
+                <div class="mini__row"><span>Distribution</span><span class="mini__chip">Paid</span></div>
+              </div>
+            </div>
 
-  // -----------------------------
-  // Header shadow on scroll (light luxury touch)
-  // - No infinite RAF loop; only updates on scroll + on load
-  // -----------------------------
-  const headerEl = $(".header");
-  const applyHeaderShadow = () => {
-    if (!headerEl) return;
-    const y = window.scrollY || 0;
-    headerEl.style.boxShadow = y > 6 ? "0 12px 40px rgba(10,18,32,.06)" : "none";
-  };
+            <div class="glasscard__footer">
+              <span class="muted">Information-only website</span>
+              <span class="accentline"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  applyHeaderShadow();
-  window.addEventListener("scroll", applyHeaderShadow, { passive: true });
+    <!-- OVERVIEW -->
+    <section class="section container" id="overview">
+      <div class="section__head reveal">
+        <h2 class="section__title">Overview</h2>
+        <p class="section__desc">
+          Operator-led companies. Disciplined standards. A bias toward systems that scale.
+        </p>
+      </div>
 
-  // -----------------------------
-  // BEAM animation
-  // Requirements:
-  // - HTML contains:
-  //   <div class="beams">
-  //     <span class="beam beam--1"></span>
-  //     <span class="beam beam--2"></span>
-  //     <span class="beam beam--3"></span>
-  //   </div>
-  //
-  // Notes:
-  // - CSS already provides animation: beamMove
-  // - This JS adds subtle "drift" to feel premium.
-  // - If prefers-reduced-motion, we keep CSS as-is and skip drift.
-  // -----------------------------
-  const beams = $$(".beam");
+      <div class="cards">
+        <article class="card reveal">
+          <h3>Software</h3>
+          <p>Products and internal tools that remove friction: automation, onboarding, analytics, and repeatable workflows.</p>
+          <div class="card__foot">
+            <span class="tag">SaaS</span><span class="tag">Automation</span><span class="tag">UX</span>
+          </div>
+        </article>
 
-  // If beams don't exist, do nothing (prevents errors)
-  if (beams.length) {
-    // Give each beam a stable base rotation derived from its class if present
-    // so even if CSS changes, JS keeps consistent angles.
-    const baseRot = beams.map((b, i) => {
-      // match your CSS: -18, -12, -22; fallback pattern
-      if (b.classList.contains("beam--1")) return -18;
-      if (b.classList.contains("beam--2")) return -12;
-      if (b.classList.contains("beam--3")) return -22;
-      return -16 - i * 3;
-    });
+        <article class="card reveal">
+          <h3>Marketing</h3>
+          <p>Performance distribution with executive-grade measurement: creative systems, funnels, and channel execution.</p>
+          <div class="card__foot">
+            <span class="tag">Paid Media</span><span class="tag">Creative</span><span class="tag">Attribution</span>
+          </div>
+        </article>
 
-    // Optional: small parallax based on mouse position (desktop only)
-    // Very subtle; feels expensive. Disabled for reduced motion.
-    let mx = 0, my = 0;
-    const onMouseMove = (e) => {
-      const vw = Math.max(1, window.innerWidth);
-      const vh = Math.max(1, window.innerHeight);
-      // normalize -0.5..0.5
-      mx = (e.clientX / vw) - 0.5;
-      my = (e.clientY / vh) - 0.5;
-    };
+        <article class="card reveal">
+          <h3>Holding</h3>
+          <p>Capital allocation built around durability and alignment. We prefer cashflow, defensibility, and clean operations.</p>
+          <div class="card__foot">
+            <span class="tag">Long-term</span><span class="tag">Discipline</span><span class="tag">Integrity</span>
+          </div>
+        </article>
+      </div>
+    </section>
 
-    if (!prefersReduced) {
-      window.addEventListener("mousemove", onMouseMove, { passive: true });
-    }
+    <!-- FOCUS -->
+    <section class="section section--alt" id="focus">
+      <div class="container">
+        <div class="section__head reveal">
+          <h2 class="section__title">Focus</h2>
+          <p class="section__desc">
+            A small set of repeatable strengths, executed deeply.
+          </p>
+        </div>
 
-    // Drift loop
-    let t = 0;
-    let rafId = 0;
+        <div class="split">
+          <div class="split__left reveal">
+            <div class="list">
+              <div class="list__item">
+                <div class="list__icon">01</div>
+                <div>
+                  <div class="list__title">Automation-first operations</div>
+                  <div class="list__desc">Reduce manual work, increase consistency, shorten cycle times.</div>
+                </div>
+              </div>
 
-    const animateBeams = () => {
-      rafId = 0;
-      if (prefersReduced) return; // stop drift if reduced motion
+              <div class="list__item">
+                <div class="list__icon">02</div>
+                <div>
+                  <div class="list__title">High-signal measurement</div>
+                  <div class="list__desc">Decisions based on clean data, not noise. Simple dashboards, real KPIs.</div>
+                </div>
+              </div>
 
-      t += 0.0018;
+              <div class="list__item">
+                <div class="list__icon">03</div>
+                <div>
+                  <div class="list__title">Distribution as a core competency</div>
+                  <div class="list__desc">Offers and creatives designed to scale without fragility.</div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-      // Scroll velocity micro influence (quiet, no jank)
-      // Uses lastY and current scroll to add tiny response to user movement.
-      const y = window.scrollY || 0;
-      animateBeams.lastY ??= y;
-      const dy = y - animateBeams.lastY;
-      animateBeams.lastY = y;
+          <div class="split__right reveal">
+            <div class="quote">
+              <p>
+                “We care about elegance, but we care more about outcomes.
+                If it’s not measurable, it’s not real.”
+              </p>
+              <div class="quote__by">
+                <span class="quote__line"></span>
+                <span class="muted">Novendal</span>
+              </div>
+            </div>
 
-      const vel = clamp(dy, -60, 60);
+            <div class="metrics">
+              <div class="metric">
+                <div class="metric__k">Quality</div>
+                <div class="metric__v">Design-led</div>
+              </div>
+              <div class="metric">
+                <div class="metric__k">Execution</div>
+                <div class="metric__v">Operator-first</div>
+              </div>
+              <div class="metric">
+                <div class="metric__k">Scope</div>
+                <div class="metric__v">Selective</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      beams.forEach((beam, i) => {
-        // smooth sine drift
-        const sx = Math.sin(t + i * 1.25) * 90;
-        const sy = Math.cos(t * 0.85 + i * 0.9) * 70;
+    <!-- PRINCIPLES -->
+    <section class="section container" id="principles">
+      <div class="section__head reveal">
+        <h2 class="section__title">Principles</h2>
+        <p class="section__desc">
+          The standards we apply across all ventures.
+        </p>
+      </div>
 
-        // mouse parallax (very subtle)
-        const px = mx * 28;
-        const py = my * 18;
+      <div class="principles">
+        <div class="principle reveal">
+          <div class="principle__cap">Craft</div>
+          <div class="principle__body">Simple, sharp, and intentional. Details matter.</div>
+        </div>
+        <div class="principle reveal">
+          <div class="principle__cap">Leverage</div>
+          <div class="principle__body">Systems beat effort. Automation beats chaos.</div>
+        </div>
+        <div class="principle reveal">
+          <div class="principle__cap">Signal</div>
+          <div class="principle__body">Only metrics that drive decisions. Everything else is noise.</div>
+        </div>
+        <div class="principle reveal">
+          <div class="principle__cap">Durability</div>
+          <div class="principle__body">Long-term thinking with short feedback loops.</div>
+        </div>
+      </div>
+    </section>
 
-        // scroll velocity response (tiny)
-        const vx = vel * 0.18;
-        const vy = vel * -0.10;
+    <!-- CONTACT -->
+    <section class="section section--alt" id="contact">
+      <div class="container contact">
+        <div class="contact__left reveal">
+          <h2 class="section__title">Contact</h2>
+          <p class="section__desc">
+            This website is informational. For partnership discussions, reach out.
+          </p>
 
-        const x = sx + px + vx;
-        const y2 = sy + py + vy;
+          <div class="contact__info">
+            <div class="info">
+              <div class="info__k">Email</div>
+              <div class="info__v">
+                <a class="link" href="mailto:hello@novendal.com">hello@novendal.com</a>
+              </div>
+            </div>
+            <div class="info">
+              <div class="info__k">Status</div>
+              <div class="info__v muted">Legal structure is currently being finalized.</div>
+            </div>
+          </div>
+        </div>
 
-        // keep the rotation stable and elegant
-        const r = baseRot[i];
+        <div class="contact__right reveal">
+          <div class="contactcard tilt" data-tilt>
+            <div class="contactcard__row">
+              <span class="muted">Novendal</span>
+              <span class="tag tag--accent">Holding Company</span>
+            </div>
+            <div class="contactcard__big">
+              Software + marketing ventures with an operator mindset.
+            </div>
+            <div class="contactcard__row">
+              <a class="btn btn--primary" href="mailto:hello@novendal.com">Email us</a>
+              <a class="btn btn--ghost" href="#top">Back to top</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        beam.style.transform = `translate(${x}px, ${y2}px) rotate(${r}deg)`;
-      });
+    <footer class="footer container">
+      <div class="footer__left">
+        <img src="logo.png" alt="" class="footer__logo" />
+        <span class="muted">© <span id="year"></span> Novendal</span>
+      </div>
+      <div class="footer__right">
+        <a class="link muted" href="#overview">Overview</a>
+        <a class="link muted" href="#contact">Contact</a>
+      </div>
+    </footer>
+  </main>
 
-      rafId = requestAnimationFrame(animateBeams);
-    };
-
-    if (!prefersReduced) {
-      // Kick it off
-      animateBeams();
-      // Also restart on tab focus (some browsers throttle RAF)
-      document.addEventListener("visibilitychange", () => {
-        if (document.visibilityState === "visible" && !rafId && !prefersReduced) {
-          animateBeams();
-        }
-      });
-    }
-  }
-
-  // -----------------------------
-  // Safety: if someone loads script in <head>, wait for DOM
-  // (not necessary if your script tag is at bottom, but harmless)
-  // -----------------------------
-})();
+  <script src="main.js"></script>
+</body>
+</html>
