@@ -759,3 +759,17 @@ img{ max-width:100%; display:block; }
 @media (min-width: 1400px){
   :root{ --max: 1240px; }
 }
+/* Premium cursor spotlight (works with main.js vars --cx/--cy) */
+body::before{
+  content:"";
+  position: fixed;
+  inset: -20%;
+  pointer-events:none;
+  z-index:-1;
+  background:
+    radial-gradient(circle at var(--cx, 50%) var(--cy, 30%),
+      rgba(6,38,73,0.10),
+      transparent 55%);
+  opacity: .9;
+  transition: opacity .2s linear;
+}
