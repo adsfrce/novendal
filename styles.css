@@ -77,45 +77,6 @@ img{ max-width:100%; display:block; }
   border-color: rgba(10,18,32,.18);
 }
 
-/* Background */
-.bg{
-  position: fixed;
-  inset:0;
-  z-index:-1;
-  pointer-events:none;
-}
-.bg__grid{
-  position:absolute;
-  inset:-20%;
-  background:
-    radial-gradient(circle at 30% 10%, rgba(6,38,73,.05), transparent 40%),
-    radial-gradient(circle at 75% 25%, rgba(6,38,73,.05), transparent 45%),
-    linear-gradient(to bottom, rgba(10,18,32,.04), transparent 30%);
-  transform: translate3d(0,0,0);
-}
-.bg__glow{
-  position:absolute;
-  width: 52vmax;
-  height: 52vmax;
-  border-radius: 999px;
-  filter: blur(60px);
-  opacity: .55;
-  transform: translate3d(var(--gx, 0px), var(--gy, 0px), 0);
-  transition: transform .2s linear;
-  will-change: transform;
-}
-.bg__glow--a{ left:-18vmax; top:-12vmax; background: rgba(6,38,73,.11); }
-.bg__glow--b{ right:-22vmax; top:10vmax; background: rgba(10,18,32,.06); }
-.bg__glow--c{ left:10vmax; bottom:-22vmax; background: rgba(6,38,73,.08); }
-
-.bg__noise{
-  position:absolute;
-  inset:0;
-  opacity:.06;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
-  background-size: 240px 240px;
-}
-
 /* BEAM BACKGROUND */
 .beams {
   position: fixed;
