@@ -132,7 +132,7 @@ img{ display:block; max-width:100%; }
   top:0;
   z-index:50;
   background: rgba(245,247,251,.70);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(6px);
   border-bottom: 1px solid rgba(10,18,32,.08);
 }
 .header__inner{
@@ -142,7 +142,7 @@ img{ display:block; max-width:100%; }
   padding: 18px 0;
 }
 .logo{
-  height: 34px;
+  height: 46px;
   width:auto;
   max-width:none;
 }
@@ -185,7 +185,7 @@ img{ display:block; max-width:100%; }
   border-radius: 12px;
   border:1px solid rgba(10,18,32,.10);
   background: rgba(255,255,255,.65);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(6px);
 }
 .menu__bar{
   display:block;
@@ -200,7 +200,7 @@ img{ display:block; max-width:100%; }
   display:none;
   border-top: 1px solid rgba(10,18,32,.08);
   background: rgba(245,247,251,.78);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(6px);
 }
 .drawer[data-open="true"]{ display:block; }
 .drawer__inner{
@@ -242,7 +242,7 @@ img{ display:block; max-width:100%; }
 .btn--primary:hover{ transform: translateY(-1px); box-shadow: 0 22px 55px rgba(0,0,0,.18); }
 .btn--ghost{
   background: rgba(255,255,255,.65);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(6px);
 }
 .btn--ghost:hover{
   transform: translateY(-1px);
@@ -317,7 +317,7 @@ img{ display:block; max-width:100%; }
   border-radius: 18px;
   border: 1px solid rgba(10,18,32,.08);
   background: rgba(255,255,255,.55);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(6px);
 }
 .meta__k{
   font-size: 11px;
@@ -335,7 +335,7 @@ img{ display:block; max-width:100%; }
   border-radius: 28px;
   border: 1px solid rgba(10,18,32,.10);
   background: rgba(255,255,255,.72);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(6px);
   box-shadow: var(--shadow);
   overflow:hidden;
 }
@@ -429,7 +429,7 @@ img{ display:block; max-width:100%; }
   border-radius: 999px;
   border: 1px solid rgba(10,18,32,.08);
   background: rgba(255,255,255,.52);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(6px);
 }
 .rail__item{ font-size: 13px; color: rgba(11,15,23,.72); }
 .rail__sep{ width: 1px; height: 14px; background: rgba(10,18,32,.14); }
@@ -463,7 +463,7 @@ img{ display:block; max-width:100%; }
   border-radius: 28px;
   border: 1px solid rgba(10,18,32,.08);
   background: rgba(255,255,255,.62);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(6px);
   box-shadow: 0 10px 34px rgba(10,18,32,.06);
 }
 .quote{
@@ -490,7 +490,7 @@ img{ display:block; max-width:100%; }
   border-radius: 28px;
   border: 1px solid rgba(10,18,32,.08);
   background: rgba(255,255,255,.72);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(6px);
   box-shadow: 0 10px 34px rgba(10,18,32,.06);
   transition: transform .45s var(--ease), box-shadow .45s var(--ease), border-color .45s var(--ease);
 }
@@ -549,7 +549,7 @@ img{ display:block; max-width:100%; }
   border-radius: 28px;
   border: 1px solid rgba(10,18,32,.08);
   background: rgba(255,255,255,.66);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(6px);
 }
 .step__n{
   width: 44px;
@@ -571,7 +571,7 @@ img{ display:block; max-width:100%; }
   border-radius: 28px;
   border: 1px solid rgba(10,18,32,.10);
   background: rgba(255,255,255,.72);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(6px);
   box-shadow: var(--shadow);
 }
 .vault__top{
@@ -611,7 +611,7 @@ img{ display:block; max-width:100%; }
   border-radius: 22px;
   border: 1px solid rgba(10,18,32,.08);
   background: rgba(255,255,255,.60);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(6px);
 }
 .note__t{ font-size: 11px; letter-spacing:.10em; text-transform: uppercase; color: rgba(11,15,23,.55); }
 .note__d{ margin-top: 8px; color: rgba(11,15,23,.66); line-height: 1.7; }
@@ -627,7 +627,7 @@ img{ display:block; max-width:100%; }
   border-radius: 24px;
   border: 1px solid rgba(10,18,32,.08);
   background: rgba(255,255,255,.68);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(6px);
   transition: transform .45s var(--ease), box-shadow .45s var(--ease), border-color .45s var(--ease);
 }
 .focuscard:hover{
@@ -659,7 +659,7 @@ img{ display:block; max-width:100%; }
   border-radius: 28px;
   border: 1px solid rgba(10,18,32,.10);
   background: rgba(255,255,255,.72);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(6px);
   box-shadow: var(--shadow);
 }
 .contact__top{
@@ -705,8 +705,8 @@ img{ display:block; max-width:100%; }
   border-top: 1px solid rgba(10,18,32,.06);
 }
 .footer__logo{
-  width: 18px;
-  height: 18px;
+  width: 46px;
+  height: 46px;
   object-fit: contain;
 }
 
