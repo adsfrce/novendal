@@ -157,8 +157,8 @@ img{ max-width:100%; display:block; }
   min-width: 180px;
 }
 .brand__logo{
-  width: 26px;
-  height: 26px;
+  width: 44px;
+  height: 44px;
   object-fit: contain;
 }
 .brand__name{
@@ -638,8 +638,8 @@ img{ max-width:100%; display:block; }
   gap: 10px;
 }
 .footer__logo{
-  width: 18px;
-  height: 18px;
+  width: 44px;
+  height: 44px;
 }
 .footer__right{
   display:flex;
