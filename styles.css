@@ -81,7 +81,7 @@ img{ display:block; max-width:100%; }
 
 .bg__spot{
   position:absolute;
-  inset:-20%;
+  inset: 0%;
   background: radial-gradient(circle at var(--cx, 50%) var(--cy, 20%),
     rgba(6,38,73,.10),
     transparent 25%);
