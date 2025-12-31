@@ -362,48 +362,4 @@
     });
   }
 
-  // =========================================================
-  // Subtle inertial scroll feel (optional but "expensive")
-  // - This does not hijack scroll; it only smooths wheel delta a bit.
-  // =========================================================
-  if (!prefersReduced && CFG.scroll.enabled) {
-    let targetY = window.scrollY || 0;
-    let currentY = targetY;
-    let scrolling = false;
-
-    const onWheel = (e) => {
-      // Only apply to non-touchpad aggressive wheel events
-      // If user holds ctrl (zoom) or uses trackpad micro scroll, skip.
-      if (e.ctrlKey) return;
-      const delta = e.deltaY;
-      if (Math.abs(delta) < 6) return;
-
-      targetY += delta;
-      targetY = clamp(
-        targetY,
-        0,
-        document.documentElement.scrollHeight - window.innerHeight
-      );
-
-      if (!scrolling) {
-        scrolling = true;
-        requestAnimationFrame(step);
-      }
-    };
-
-    const step = () => {
-      currentY = lerp(currentY, targetY, CFG.scroll.ease);
-      window.scrollTo(0, currentY);
-
-      if (Math.abs(currentY - targetY) > 0.6) {
-        requestAnimationFrame(step);
-      } else {
-        scrolling = false;
-      }
-    };
-
-    // Passive false is required if we ever preventDefault.
-    // We do NOT preventDefault here; we just smooth when deltas are large.
-    window.addEventListener("wheel", onWheel, { passive: true });
-  }
 })();
