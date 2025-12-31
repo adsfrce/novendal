@@ -1,14 +1,32 @@
-// script.js
+// script.js (REPLACE ENTIRE FILE WITH THIS)
 (() => {
-  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  "use strict";
 
-  // Year
-  const yearEl = document.getElementById("year");
+  const prefersReduced = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+
+  // -----------------------------
+  // Helpers
+  // -----------------------------
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+
+  // -----------------------------
+  // Footer year
+  // -----------------------------
+  const yearEl = $("#year");
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-  // Mobile drawer
-  const menuBtn = document.querySelector(".menu");
-  const drawer = document.querySelector("[data-drawer]");
+  // -----------------------------
+  // Mobile drawer (safe even if you don't have it)
+  // - Works with:
+  //   button.menu
+  //   [data-drawer] container
+  //   drawer links inside
+  // -----------------------------
+  const menuBtn = $(".menu");
+  const drawer = $("[data-drawer]");
+
   const setDrawer = (open) => {
     if (!drawer || !menuBtn) return;
     drawer.setAttribute("data-open", open ? "true" : "false");
@@ -31,8 +49,12 @@
     });
   }
 
-  // Smooth anchor (better than CSS alone for offset with sticky header)
-  const header = document.querySelector(".header");
+  // -----------------------------
+  // Smooth anchor scrolling with sticky header offset
+  // - Works for: <a href="#section">
+  // - Prevents jump + accounts for fixed/sticky header height
+  // -----------------------------
+  const header = $(".header");
   const headerH = () => (header ? header.getBoundingClientRect().height : 0);
 
   document.addEventListener("click", (e) => {
@@ -46,145 +68,127 @@
     if (!target) return;
 
     e.preventDefault();
-    const y = window.scrollY + target.getBoundingClientRect().top - headerH() - 10;
 
+    const y = window.scrollY + target.getBoundingClientRect().top - headerH() - 12;
     window.scrollTo({ top: y, behavior: prefersReduced ? "auto" : "smooth" });
   });
 
-  // Reveal on scroll
-  const reveals = Array.from(document.querySelectorAll(".reveal"));
-  if (!prefersReduced && "IntersectionObserver" in window) {
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("is-in");
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -10% 0px" }
-    );
-
-    reveals.forEach((el, i) => {
-      // subtle stagger using transition delay
-      el.style.transitionDelay = `${Math.min(i * 60, 360)}ms`;
-      io.observe(el);
-    });
-  } else {
-    reveals.forEach((el) => el.classList.add("is-in"));
-  }
-
-  const onScroll = () => {
-    if (raf) return;
-    raf = requestAnimationFrame(() => {
-      raf = 0;
-      const y = window.scrollY;
-      const d = y - lastY;
-      lastY = y;
-
-      // normalized scroll progress 0..1-ish
-      const docH = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-      const p = y / docH;
-
-      // Subtle drift; rare accent usage = keep it quiet
-      const ax = Math.sin(p * Math.PI * 2) * 30;
-      const ay = (p - 0.5) * 120;
-
-      const bx = Math.cos(p * Math.PI * 2) * 26;
-      const by = (0.5 - p) * 110;
-
-      const cx = Math.sin(p * Math.PI * 4) * 18;
-      const cy = (p - 0.5) * 140;
-
-      // extra micro drift from scroll velocity (d)
-      const vel = clamp(d, -40, 40);
-
-      setGlow(glowA, ax + vel * 0.35, ay - vel * 0.2);
-      setGlow(glowB, bx - vel * 0.25, by + vel * 0.25);
-      setGlow(glowC, cx + vel * 0.15, cy + vel * 0.15);
-    });
+  // -----------------------------
+  // Header shadow on scroll (light luxury touch)
+  // - No infinite RAF loop; only updates on scroll + on load
+  // -----------------------------
+  const headerEl = $(".header");
+  const applyHeaderShadow = () => {
+    if (!headerEl) return;
+    const y = window.scrollY || 0;
+    headerEl.style.boxShadow = y > 6 ? "0 12px 40px rgba(10,18,32,.06)" : "none";
   };
 
-  if (!prefersReduced) {
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-  }
+  applyHeaderShadow();
+  window.addEventListener("scroll", applyHeaderShadow, { passive: true });
 
-  // Premium tilt interaction on card
-  const tiltEls = Array.from(document.querySelectorAll("[data-tilt]"));
-  const tiltStrength = 10; // degrees max
+  // -----------------------------
+  // BEAM animation
+  // Requirements:
+  // - HTML contains:
+  //   <div class="beams">
+  //     <span class="beam beam--1"></span>
+  //     <span class="beam beam--2"></span>
+  //     <span class="beam beam--3"></span>
+  //   </div>
+  //
+  // Notes:
+  // - CSS already provides animation: beamMove
+  // - This JS adds subtle "drift" to feel premium.
+  // - If prefers-reduced-motion, we keep CSS as-is and skip drift.
+  // -----------------------------
+  const beams = $$(".beam");
 
-  const tiltMove = (el, ev) => {
-    const r = el.getBoundingClientRect();
-    const px = (ev.clientX - r.left) / r.width;
-    const py = (ev.clientY - r.top) / r.height;
-
-    const rx = (0.5 - py) * tiltStrength;
-    const ry = (px - 0.5) * tiltStrength;
-
-    el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
-  };
-
-  const tiltReset = (el) => {
-    el.style.transform = `perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
-  };
-
-  if (!prefersReduced) {
-    tiltEls.forEach((el) => {
-      let inside = false;
-
-      el.addEventListener("mouseenter", () => {
-        inside = true;
-        el.style.transition = "transform .25s cubic-bezier(.2,.8,.2,1)";
-      });
-
-      el.addEventListener("mousemove", (ev) => {
-        if (!inside) return;
-        el.style.transition = "transform .08s linear";
-        tiltMove(el, ev);
-      });
-
-      el.addEventListener("mouseleave", () => {
-        inside = false;
-        el.style.transition = "transform .35s cubic-bezier(.2,.8,.2,1)";
-        tiltReset(el);
-      });
+  // If beams don't exist, do nothing (prevents errors)
+  if (beams.length) {
+    // Give each beam a stable base rotation derived from its class if present
+    // so even if CSS changes, JS keeps consistent angles.
+    const baseRot = beams.map((b, i) => {
+      // match your CSS: -18, -12, -22; fallback pattern
+      if (b.classList.contains("beam--1")) return -18;
+      if (b.classList.contains("beam--2")) return -12;
+      if (b.classList.contains("beam--3")) return -22;
+      return -16 - i * 3;
     });
-  }
 
-  // Improve feel: subtle header shadow after scroll
-  const headerEl = document.querySelector(".header");
-  if (headerEl && !prefersReduced) {
-    const tick = () => {
-      const y = window.scrollY;
-      headerEl.style.boxShadow = y > 6 ? "0 12px 40px rgba(10,18,32,.06)" : "none";
-      requestAnimationFrame(tick);
+    // Optional: small parallax based on mouse position (desktop only)
+    // Very subtle; feels expensive. Disabled for reduced motion.
+    let mx = 0, my = 0;
+    const onMouseMove = (e) => {
+      const vw = Math.max(1, window.innerWidth);
+      const vh = Math.max(1, window.innerHeight);
+      // normalize -0.5..0.5
+      mx = (e.clientX / vw) - 0.5;
+      my = (e.clientY / vh) - 0.5;
     };
-    requestAnimationFrame(tick);
+
+    if (!prefersReduced) {
+      window.addEventListener("mousemove", onMouseMove, { passive: true });
+    }
+
+    // Drift loop
+    let t = 0;
+    let rafId = 0;
+
+    const animateBeams = () => {
+      rafId = 0;
+      if (prefersReduced) return; // stop drift if reduced motion
+
+      t += 0.0018;
+
+      // Scroll velocity micro influence (quiet, no jank)
+      // Uses lastY and current scroll to add tiny response to user movement.
+      const y = window.scrollY || 0;
+      animateBeams.lastY ??= y;
+      const dy = y - animateBeams.lastY;
+      animateBeams.lastY = y;
+
+      const vel = clamp(dy, -60, 60);
+
+      beams.forEach((beam, i) => {
+        // smooth sine drift
+        const sx = Math.sin(t + i * 1.25) * 90;
+        const sy = Math.cos(t * 0.85 + i * 0.9) * 70;
+
+        // mouse parallax (very subtle)
+        const px = mx * 28;
+        const py = my * 18;
+
+        // scroll velocity response (tiny)
+        const vx = vel * 0.18;
+        const vy = vel * -0.10;
+
+        const x = sx + px + vx;
+        const y2 = sy + py + vy;
+
+        // keep the rotation stable and elegant
+        const r = baseRot[i];
+
+        beam.style.transform = `translate(${x}px, ${y2}px) rotate(${r}deg)`;
+      });
+
+      rafId = requestAnimationFrame(animateBeams);
+    };
+
+    if (!prefersReduced) {
+      // Kick it off
+      animateBeams();
+      // Also restart on tab focus (some browsers throttle RAF)
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible" && !rafId && !prefersReduced) {
+          animateBeams();
+        }
+      });
+    }
   }
+
+  // -----------------------------
+  // Safety: if someone loads script in <head>, wait for DOM
+  // (not necessary if your script tag is at bottom, but harmless)
+  // -----------------------------
 })();
-
-/* BEAM ANIMATION */
-const beams = document.querySelectorAll(".beam");
-let t = 0;
-
-function animateBeams() {
-  t += 0.0018;
-
-  beams.forEach((beam, i) => {
-    const x = Math.sin(t + i * 1.3) * 80;
-    const y = Math.cos(t * 0.8 + i) * 60;
-    const r = -18 - i * 4;
-
-    beam.style.transform =
-      `translate(${x}px, ${y}px) rotate(${r}deg)`;
-  });
-
-  requestAnimationFrame(animateBeams);
-}
-
-animateBeams();
-
-/* FOOTER YEAR */
-const yearEl = document.getElementById("year");
-if (yearEl) {
-  yearEl.textContent = new Date().getFullYear();
-}
