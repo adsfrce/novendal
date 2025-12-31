@@ -4,136 +4,210 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Novendal</title>
-  <meta name="description" content="Novendal is a private holding company operating in software and performance marketing." />
+  <meta name="description" content="Novendal is a holding company operating across software and performance marketing." />
   <meta name="theme-color" content="#f2f4f7" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <!-- Global keynote-style beam background -->
+  <!-- Global beam background -->
   <div class="beams" aria-hidden="true">
     <span class="beam beam--1"></span>
     <span class="beam beam--2"></span>
     <span class="beam beam--3"></span>
   </div>
 
+  <!-- HEADER -->
   <header class="header">
     <div class="container header__inner">
-      <img src="logo.png" alt="Novendal" class="brand__logo" />
+      <img src="logo.png" alt="Novendal" class="logo" />
 
       <nav class="nav">
-        <a href="#overview">Overview</a>
-        <a href="#focus">Focus</a>
-        <a href="#contact">Contact</a>
+        <a class="nav__link" href="#overview">Overview</a>
+        <a class="nav__link" href="#focus">Focus</a>
+        <a class="nav__link" href="#contact">Contact</a>
+        <span class="nav__indicator"></span>
       </nav>
     </div>
   </header>
 
   <main>
-    <!-- HERO -->
+    <!-- HERO (FULL VIEWPORT MOMENT) -->
     <section class="hero container">
-      <h1 class="hero__title">
-        A holding company<br />
-        built for long-term value.
-      </h1>
+      <div class="hero__grid">
+        <div class="hero__left">
+          <h1 class="hero__title reveal">
+            A holding company<br>
+            built for long-term value.
+          </h1>
 
-      <p class="hero__sub">
-        Novendal operates and invests in businesses across software and performance marketing.
-        We focus on durable systems, disciplined execution, and compounding outcomes.
-      </p>
+          <p class="hero__sub reveal">
+            Novendal operates and invests in businesses across software and
+            performance marketing. We focus on durable systems, disciplined
+            execution, and compounding outcomes.
+          </p>
+        </div>
+
+        <div class="hero__right reveal">
+          <div class="glasscard tilt" data-tilt>
+            <div class="glasscard__top">
+              <span class="pill">Portfolio</span>
+              <span class="badge">Private</span>
+            </div>
+
+            <div class="glasscard__body">
+              <div class="stat">
+                <span class="stat__label">Primary Domains</span>
+                <span class="stat__value">Software & Marketing</span>
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="mini">
+                <div class="mini__row">
+                  <span>Execution</span>
+                  <span class="mini__chip">Operator-led</span>
+                </div>
+                <div class="mini__row">
+                  <span>Strategy</span>
+                  <span class="mini__chip">Long-term</span>
+                </div>
+                <div class="mini__row">
+                  <span>Approach</span>
+                  <span class="mini__chip">Systems-first</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="glasscard__footer">
+              <span class="muted">Novendal</span>
+              <span class="accentline"></span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- OVERVIEW -->
+    <!-- OVERVIEW (STATEMENT-DRIVEN, NOT PARAGRAPH DUMP) -->
     <section class="section container" id="overview">
-      <div class="grid">
-        <div class="col">
-          <h2 class="section__title">Overview</h2>
-        </div>
-        <div class="col wide">
+      <div class="section__head reveal">
+        <h2 class="section__title">Overview</h2>
+        <p class="section__desc">
+          Operator-led companies. Clean execution. Systems that scale.
+        </p>
+      </div>
+
+      <div class="split">
+        <div class="split__left reveal">
           <p>
-            Novendal is structured as a private holding company with a long-term orientation.
-            We build, operate, and scale companies internally, prioritizing clarity,
-            operational leverage, and capital efficiency.
+            Novendal is structured as a private holding company with a long-term
+            orientation. We build, operate, and scale companies internally,
+            prioritizing clarity, operational leverage, and capital efficiency.
           </p>
 
           <p>
-            Our approach is operator-led. We value clean execution, strong fundamentals,
-            and systems that scale without unnecessary complexity.
+            Our approach is operator-led. We value clean execution, strong
+            fundamentals, and systems that scale without unnecessary complexity.
           </p>
+        </div>
+
+        <div class="split__right reveal">
+          <div class="quote">
+            <p>
+              We optimize for clarity, speed, and durability.
+              Everything else is noise.
+            </p>
+            <div class="quote__by">
+              <span class="quote__line"></span>
+              <span class="muted">Novendal</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- FOCUS -->
-    <section class="section container" id="focus">
-      <div class="grid">
-        <div class="col">
+    <!-- FOCUS (CARDS, NOT BULLETS) -->
+    <section class="section section--alt" id="focus">
+      <div class="container">
+        <div class="section__head reveal">
           <h2 class="section__title">Focus</h2>
+          <p class="section__desc">
+            A narrow scope, executed deeply.
+          </p>
         </div>
-        <div class="col wide">
-          <ul class="focus">
-            <li>
-              <span>Software</span>
-              <em>
-                Internal tools, automation platforms, and scalable SaaS products
-                designed to increase operational leverage.
-              </em>
-            </li>
 
-            <li>
-              <span>Marketing</span>
-              <em>
-                Performance-driven acquisition, creative systems, funnels,
-                and distribution strategies focused on measurable outcomes.
-              </em>
-            </li>
+        <div class="cards">
+          <article class="card reveal">
+            <h3>Software</h3>
+            <p>
+              Internal tools, automation platforms, and scalable SaaS products
+              designed to increase operational leverage.
+            </p>
+            <div class="card__foot">
+              <span class="tag">Automation</span>
+              <span class="tag">SaaS</span>
+              <span class="tag">Systems</span>
+            </div>
+          </article>
 
-            <li>
-              <span>Operations</span>
-              <em>
-                Structured processes, high-signal metrics, and an
-                operator-first mindset across all ventures.
-              </em>
-            </li>
-          </ul>
+          <article class="card reveal">
+            <h3>Marketing</h3>
+            <p>
+              Performance-driven acquisition, creative systems, funnels,
+              and distribution strategies focused on measurable outcomes.
+            </p>
+            <div class="card__foot">
+              <span class="tag">Paid Media</span>
+              <span class="tag">Funnels</span>
+              <span class="tag">Distribution</span>
+            </div>
+          </article>
+
+          <article class="card reveal">
+            <h3>Operations</h3>
+            <p>
+              Structured processes, high-signal metrics, and an
+              operator-first mindset across all ventures.
+            </p>
+            <div class="card__foot">
+              <span class="tag">Execution</span>
+              <span class="tag">Metrics</span>
+              <span class="tag">Discipline</span>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- STATEMENT -->
-    <section class="statement container">
-      <p>
-        We optimize for clarity, speed, and durability.<br />
-        Everything else is noise.
-      </p>
-    </section>
-
-    <!-- CONTACT -->
+    <!-- CONTACT (CLEAN, CONFIDENT) -->
     <section class="section container" id="contact">
-      <div class="grid">
-        <div class="col">
-          <h2 class="section__title">Contact</h2>
+      <div class="section__head reveal">
+        <h2 class="section__title">Contact</h2>
+        <p class="section__desc">
+          Direct inquiries only.
+        </p>
+      </div>
+
+      <div class="contactcard reveal tilt" data-tilt>
+        <div class="contactcard__row">
+          <span class="muted">General inquiries</span>
+          <span class="tag tag--accent">Email</span>
         </div>
-        <div class="col wide">
-          <p>
-            This website is informational only.
-            For general inquiries or partnership discussions, reach out directly.
-          </p>
 
-          <p class="contact">
-            <a href="mailto:hello@novendal.com">hello@novendal.com</a>
-          </p>
-
-          <p class="muted">
-            United States • Private company • Legal structure in progress
-          </p>
+        <div class="contactcard__big">
+          <a href="mailto:hello@novendal.com" class="link">
+            hello@novendal.com
+          </a>
         </div>
       </div>
     </section>
 
+    <!-- FOOTER -->
     <footer class="footer container">
-      <img src="logo.png" alt="Novendal" class="brand__logo" />
-      <span>© <span id="year"></span> Novendal</span>
+      <div class="footer__left">
+        <img src="logo.png" alt="" class="footer__logo" />
+        <span class="muted">© <span id="year"></span> Novendal</span>
+      </div>
     </footer>
   </main>
 
