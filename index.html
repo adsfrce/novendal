@@ -1,1 +1,342 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>Novendal — Holding Company</title>
+  <meta name="description" content="Novendal is a holding company focused on software and performance marketing. US-market, globally minded." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="styles.css" />
+</head>
 
+<body>
+  <!-- Global background layer -->
+  <div class="bg" aria-hidden="true">
+    <div class="bg__grid"></div>
+    <div class="bg__glow bg__glow--a"></div>
+    <div class="bg__glow bg__glow--b"></div>
+    <div class="bg__glow bg__glow--c"></div>
+    <div class="bg__noise"></div>
+  </div>
+
+  <header class="header" id="top">
+    <div class="container header__inner">
+      <a class="brand" href="#top" aria-label="Novendal home">
+        <img src="logo.png" alt="Novendal" class="brand__logo" />
+        <span class="brand__name">Novendal</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <a class="nav__link" href="#overview">Overview</a>
+        <a class="nav__link" href="#focus">Focus</a>
+        <a class="nav__link" href="#principles">Principles</a>
+        <a class="nav__link" href="#contact">Contact</a>
+      </nav>
+
+      <button class="menu" type="button" aria-label="Open menu" aria-expanded="false">
+        <span class="menu__bar"></span>
+        <span class="menu__bar"></span>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="drawer" data-drawer>
+      <div class="drawer__inner container">
+        <a class="drawer__link" href="#overview">Overview</a>
+        <a class="drawer__link" href="#focus">Focus</a>
+        <a class="drawer__link" href="#principles">Principles</a>
+        <a class="drawer__link" href="#contact">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero container">
+      <div class="hero__grid">
+        <div class="hero__left">
+          <div class="kicker reveal">
+            <span class="dot"></span>
+            Holding company • Software • Performance Marketing
+          </div>
+
+          <h1 class="hero__title reveal">
+            Built for long-term value.<br />
+            Operated with precision.
+          </h1>
+
+          <p class="hero__sub reveal">
+            Novendal is a holding company investing in and operating businesses in software and marketing.
+            We build durable systems, strong brands, and measurable growth.
+          </p>
+
+          <div class="hero__actions reveal">
+            <a class="btn btn--primary" href="#contact">Contact</a>
+            <a class="btn btn--ghost" href="#overview">Learn more</a>
+          </div>
+
+          <div class="hero__meta reveal">
+            <div class="meta__item">
+              <div class="meta__label">Based</div>
+              <div class="meta__value">Germany • US Market Focus</div>
+            </div>
+            <div class="meta__item">
+              <div class="meta__label">Domains</div>
+              <div class="meta__value">SaaS • Automation • Paid Media</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__right reveal">
+          <div class="glasscard tilt" data-tilt>
+            <div class="glasscard__top">
+              <div class="pill">Portfolio View</div>
+              <div class="badge">Private</div>
+            </div>
+
+            <div class="glasscard__body">
+              <div class="stat">
+                <div class="stat__label">Build</div>
+                <div class="stat__value">Software</div>
+              </div>
+              <div class="divider"></div>
+              <div class="stat">
+                <div class="stat__label">Scale</div>
+                <div class="stat__value">Marketing</div>
+              </div>
+              <div class="divider"></div>
+              <div class="stat">
+                <div class="stat__label">Compound</div>
+                <div class="stat__value">Cashflow</div>
+              </div>
+
+              <div class="mini">
+                <div class="mini__row">
+                  <span>Systems</span>
+                  <span class="mini__chip">Ops</span>
+                </div>
+                <div class="mini__row">
+                  <span>Automation</span>
+                  <span class="mini__chip">AI</span>
+                </div>
+                <div class="mini__row">
+                  <span>Distribution</span>
+                  <span class="mini__chip">Paid</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="glasscard__footer">
+              <span class="muted">Information-only website</span>
+              <span class="accentline"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__bottom reveal">
+        <div class="trusted">
+          <span class="trusted__label">What we optimize for</span>
+          <div class="trusted__items">
+            <span class="chip">Clarity</span>
+            <span class="chip">Speed</span>
+            <span class="chip">Reliability</span>
+            <span class="chip">Compounding results</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section class="section container" id="overview">
+      <div class="section__head reveal">
+        <h2 class="section__title">Overview</h2>
+        <p class="section__desc">
+          We operate like builders, not spectators: tight feedback loops, strong fundamentals, and clean execution.
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card reveal">
+          <h3>Software</h3>
+          <p>Products focused on operational leverage: automation, onboarding, analytics, and repeatable workflows.</p>
+          <div class="card__foot">
+            <span class="tag">SaaS</span><span class="tag">Systems</span><span class="tag">UX</span>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <h3>Marketing</h3>
+          <p>Performance-driven distribution: paid media, funnels, creatives, and measurement that executives trust.</p>
+          <div class="card__foot">
+            <span class="tag">Paid Media</span><span class="tag">Creative</span><span class="tag">Attribution</span>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <h3>Holding</h3>
+          <p>Capital allocation with a bias toward durable cashflows, defensible moats, and owner-operator alignment.</p>
+          <div class="card__foot">
+            <span class="tag">Long-term</span><span class="tag">Discipline</span><span class="tag">Integrity</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- FOCUS -->
+    <section class="section section--alt" id="focus">
+      <div class="container">
+        <div class="section__head reveal">
+          <h2 class="section__title">Focus</h2>
+          <p class="section__desc">
+            A small set of repeatable strengths, executed deeply.
+          </p>
+        </div>
+
+        <div class="split">
+          <div class="split__left reveal">
+            <div class="list">
+              <div class="list__item">
+                <div class="list__icon">01</div>
+                <div>
+                  <div class="list__title">Automation-first operations</div>
+                  <div class="list__desc">Reduce manual work, increase consistency, and shorten cycle times.</div>
+                </div>
+              </div>
+
+              <div class="list__item">
+                <div class="list__icon">02</div>
+                <div>
+                  <div class="list__title">High-signal measurement</div>
+                  <div class="list__desc">Decisions based on clean data, not vibes. Simple dashboards, real KPIs.</div>
+                </div>
+              </div>
+
+              <div class="list__item">
+                <div class="list__icon">03</div>
+                <div>
+                  <div class="list__title">Distribution as a core competency</div>
+                  <div class="list__desc">Offers, creatives, and channels designed to scale without fragility.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="split__right reveal">
+            <div class="quote">
+              <p>
+                “We care about elegance, but we care more about outcomes.
+                If it’s not measurable, it’s not real.”
+              </p>
+              <div class="quote__by">
+                <span class="quote__line"></span>
+                <span class="muted">Novendal</span>
+              </div>
+            </div>
+
+            <div class="metrics">
+              <div class="metric">
+                <div class="metric__k">Quality</div>
+                <div class="metric__v">Design-led</div>
+              </div>
+              <div class="metric">
+                <div class="metric__k">Execution</div>
+                <div class="metric__v">Operator-first</div>
+              </div>
+              <div class="metric">
+                <div class="metric__k">Scope</div>
+                <div class="metric__v">Selective</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRINCIPLES -->
+    <section class="section container" id="principles">
+      <div class="section__head reveal">
+        <h2 class="section__title">Principles</h2>
+        <p class="section__desc">
+          The standards we apply across all ventures.
+        </p>
+      </div>
+
+      <div class="principles">
+        <div class="principle reveal">
+          <div class="principle__cap">Craft</div>
+          <div class="principle__body">Simple, sharp, and intentional. Details matter.</div>
+        </div>
+        <div class="principle reveal">
+          <div class="principle__cap">Leverage</div>
+          <div class="principle__body">Systems beat effort. Automation beats chaos.</div>
+        </div>
+        <div class="principle reveal">
+          <div class="principle__cap">Signal</div>
+          <div class="principle__body">Only metrics that drive decisions. Everything else is noise.</div>
+        </div>
+        <div class="principle reveal">
+          <div class="principle__cap">Durability</div>
+          <div class="principle__body">Long-term thinking with short feedback loops.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section section--alt" id="contact">
+      <div class="container contact">
+        <div class="contact__left reveal">
+          <h2 class="section__title">Contact</h2>
+          <p class="section__desc">
+            This website is informational. For partnership discussions, reach out.
+          </p>
+
+          <div class="contact__info">
+            <div class="info">
+              <div class="info__k">Email</div>
+              <div class="info__v">
+                <a class="link" href="mailto:hello@novendal.com">hello@novendal.com</a>
+              </div>
+            </div>
+            <div class="info">
+              <div class="info__k">Notes</div>
+              <div class="info__v muted">Replace with your official contact details.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact__right reveal">
+          <div class="contactcard">
+            <div class="contactcard__row">
+              <span class="muted">Novendal</span>
+              <span class="tag tag--accent">Holding Company</span>
+            </div>
+            <div class="contactcard__big">
+              Software + marketing ventures with an operator mindset.
+            </div>
+            <div class="contactcard__row">
+              <a class="btn btn--primary" href="mailto:hello@novendal.com">Email us</a>
+              <a class="btn btn--ghost" href="#top">Back to top</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer container">
+      <div class="footer__left">
+        <img src="logo.png" alt="" class="footer__logo" />
+        <span class="muted">© <span id="year"></span> Novendal. All rights reserved.</span>
+      </div>
+      <div class="footer__right">
+        <a class="link muted" href="#overview">Overview</a>
+        <a class="link muted" href="#contact">Contact</a>
+      </div>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
