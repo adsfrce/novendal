@@ -758,7 +758,7 @@ img{ display:block; max-width:100%; }
 
 /* 1) Correct header logo sizing for .logo (your HTML uses .logo, not .brand__logo) */
 .logo{
-  height: 34px;
+  height: 46px;
   width: auto;
   max-width: none;
 }
@@ -820,8 +820,8 @@ img{ display:block; max-width:100%; }
 
 /* 6) Make footer logo match your new HTML */
 .footer__logo{
-  width: 18px;
-  height: 18px;
+  width: 46px;
+  height: 46px;
   object-fit: contain;
 }
 
