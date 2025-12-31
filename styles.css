@@ -116,6 +116,64 @@ img{ max-width:100%; display:block; }
   background-size: 240px 240px;
 }
 
+/* BEAM BACKGROUND */
+.beams {
+  position: fixed;
+  inset: -20%;
+  z-index: -1;
+  background: #f2f4f7;
+  overflow: hidden;
+}
+
+.beam {
+  position: absolute;
+  width: 140%;
+  height: 120%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(6,38,73,0.08) 45%,
+    rgba(6,38,73,0.14) 50%,
+    rgba(6,38,73,0.08) 55%,
+    transparent 100%
+  );
+  filter: blur(40px);
+  transform-origin: center;
+  animation: beamMove 40s linear infinite;
+}
+
+.beam--1 {
+  top: -30%;
+  left: -20%;
+  transform: rotate(-18deg);
+  animation-duration: 55s;
+}
+
+.beam--2 {
+  top: 0%;
+  left: -40%;
+  transform: rotate(-12deg);
+  animation-duration: 70s;
+  opacity: 0.7;
+}
+
+.beam--3 {
+  top: 20%;
+  left: -30%;
+  transform: rotate(-22deg);
+  animation-duration: 90s;
+  opacity: 0.5;
+}
+
+@keyframes beamMove {
+  0% {
+    transform: translateX(-30%) rotate(var(--r, -15deg));
+  }
+  100% {
+    transform: translateX(30%) rotate(var(--r, -15deg));
+  }
+}
+
 /* Header */
 .header{
   position: sticky;
