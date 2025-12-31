@@ -72,21 +72,6 @@
     reveals.forEach((el) => el.classList.add("is-in"));
   }
 
-  // Apple-ish global background motion on scroll
-  const glowA = document.querySelector(".bg__glow--a");
-  const glowB = document.querySelector(".bg__glow--b");
-  const glowC = document.querySelector(".bg__glow--c");
-
-  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
-  const setGlow = (el, x, y) => {
-    if (!el) return;
-    el.style.setProperty("--gx", `${x}px`);
-    el.style.setProperty("--gy", `${y}px`);
-  };
-
-  let lastY = window.scrollY;
-  let raf = 0;
-
   const onScroll = () => {
     if (raf) return;
     raf = requestAnimationFrame(() => {
@@ -176,3 +161,30 @@
     requestAnimationFrame(tick);
   }
 })();
+
+/* BEAM ANIMATION */
+const beams = document.querySelectorAll(".beam");
+let t = 0;
+
+function animateBeams() {
+  t += 0.0018;
+
+  beams.forEach((beam, i) => {
+    const x = Math.sin(t + i * 1.3) * 80;
+    const y = Math.cos(t * 0.8 + i) * 60;
+    const r = -18 - i * 4;
+
+    beam.style.transform =
+      `translate(${x}px, ${y}px) rotate(${r}deg)`;
+  });
+
+  requestAnimationFrame(animateBeams);
+}
+
+animateBeams();
+
+/* FOOTER YEAR */
+const yearEl = document.getElementById("year");
+if (yearEl) {
+  yearEl.textContent = new Date().getFullYear();
+}
